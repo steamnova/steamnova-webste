@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SteamNova | AI & STEAM Education for Kids in Richmond BC</title>
+    <meta name="description" content="SteamNova - Richmond's Premier AI & STEAM Education Center. Learn by doing! Hands-on robotics & coding for kids ages 5-12. Book your free trial today!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E55A25;
+            --secondary: #1A1A2E;
+            --accent: #FFB830;
+            --white: #FFFFFF;
+            --off-white: #F8F9FC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-600: #6B7280;
+            --blue: #00D4FF;
+            --purple: #7B2CBF;
+            --gradient: linear-gradient(135deg, #FF6B35 0%, #FFB830 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', 'Noto Sans SC', -apple-system, sans-serif; background: var(--off-white); color: var(--secondary); line-height: 1.6; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .text-gradient { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s; border: none; cursor: pointer; font-size: 1rem; }
+        .btn-primary { background: var(--gradient); color: var(--white); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,107,53,0.4); }
+        .btn-secondary { background: var(--secondary); color: var(--white); }
+        .btn-outline { background: transparent; color: var(--secondary); border: 2px solid var(--gray-200); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+        
+        /* Language Switch */
+        .lang-switch { display: flex; align-items: center; gap: 4px; background: var(--gray-100); border-radius: 50px; padding: 4px; margin-left: 24px; }
+        .lang-btn { padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--gray-600); transition: all 0.3s; }
+        .lang-btn.active { background: var(--primary); color: var(--white); }
+        
+        /* Header */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--gray-200); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { width: 48px; height: 48px; }
+        .logo-text { font-size: 1.5rem; font-weight: 900; color: var(--secondary); letter-spacing: -0.5px; }
+        .logo-text span { color: var(--primary); }
+        nav { display: flex; align-items: center; gap: 32px; }
+        nav > a { color: var(--gray-600); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        nav > a:hover { color: var(--primary); }
+        
+        /* Hero */
+        .hero { min-height: 100vh; background: var(--secondary); display: flex; align-items: center; padding-top: 100px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255,107,53,0.2), transparent), radial-gradient(ellipse 60% 40% at 90% 60%, rgba(123,44,191,0.15), transparent); }
+        .hero-stars { position: absolute; inset: 0; }
+        .hero-star { position: absolute; background: var(--white); border-radius: 50%; animation: twinkle 3s infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.3); padding: 8px 16px; border-radius: 50px; color: var(--primary); font-size: 0.875rem; font-weight: 600; margin-bottom: 24px; }
+        .hero h1 { font-size: clamp(2.5rem,6vw,4rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 24px; }
+        .hero h1 .highlight { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25rem; color: rgba(255,255,255,0.7); margin-bottom: 40px; max-width: 550px; }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+        
+        .hero-stats { display: flex; gap: 48px; margin-top: 64px; padding-top: 48px; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+        .stat { text-align: left; }
+        .stat-number { font-size: 2.5rem; font-weight: 900; color: var(--white); line-height: 1; }
+        .stat-label { color: rgba(255,255,255,0.5); font-size: 0.875rem; margin-top: 4px; }
+
+        /* Philosophy Sections */
+        .section { padding: 100px 0; }
+        .section-dark { background: var(--secondary); }
+        .section-light { background: var(--white); }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 64px; }
+        .section-label { display: inline-block; background: rgba(255,107,53,0.1); color: var(--primary); padding: 6px 16px; border-radius: 50px; font-size: 0.875rem; font-weight: 600; margin-bottom: 16px; }
+        .section-title { font-size: clamp(2rem,4vw,2.75rem); font-weight: 900; margin-bottom: 16px; }
+        .section-desc { font-size: 1.125rem; color: var(--gray-600); }
+        
+        /* Philosophy Cards */
+        .philo-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 32px; }
+        .philo-card { background: var(--white); border-radius: 24px; padding: 40px 32px; border: 1px solid var(--gray-200); text-align: center; transition: all 0.3s; }
+        .philo-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.12); }
+        .philo-icon { width: 80px; height: 80px; background: var(--gradient); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 24px; }
+        .philo-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; color: var(--secondary); }
+        .philo-card p { color: var(--gray-600); font-size: 1rem; line-height: 1.7; }
+        
+        /* Quote */
+        .quote-section { background: var(--secondary); padding: 80px 0; text-align: center; }
+        .quote-text { font-size: clamp(1.5rem,3vw,2rem); font-weight: 700; color: var(--white); font-style: italic; max-width: 800px; margin: 0 auto; line-height: 1.5; }
+        .quote-text::before { content: '"'; color: var(--primary); }
+        .quote-text::after { content: '"'; color: var(--primary); }
+        
+        /* Approach */
+        .approach-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; text-align: center; }
+        @media (max-width: 768px) { .approach-grid { grid-template-columns: 1fr; } }
+        .approach-item { padding: 32px; }
+        .approach-percent { font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: 8px; }
+        .approach-label { font-size: 1.25rem; font-weight: 700; color: var(--secondary); }
+        .approach-desc { color: var(--gray-600); margin-top: 8px; font-size: 0.9rem; }
+
+        /* Courses */
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(340px,1fr)); gap: 32px; }
+        .course-card { background: var(--white); border-radius: 24px; overflow: hidden; border: 1px solid var(--gray-200); transition: all 0.3s; }
+        .course-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.1); }
+        .course-header { background: var(--secondary); padding: 32px; position: relative; }
+        .course-header.blue { background: linear-gradient(135deg, #00D4FF, #0099CC); }
+        .course-header.purple { background: linear-gradient(135deg, #7B2CBF, #5A189A); }
+        .course-header.orange { background: linear-gradient(135deg, #FF6B35, #E55A25); }
+        .course-header h3 { font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+        .course-tag { display: inline-block; background: var(--white); color: var(--secondary); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+        .course-content { padding: 32px; }
+        .course-list { list-style: none; }
+        .course-list li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); color: var(--gray-600); }
+        .course-list li:last-child { border-bottom: none; }
+        .course-list li::before { content: '✓'; color: var(--primary); font-weight: 700; }
+        .course-price { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .price { font-size: 1.75rem; font-weight: 900; }
+        .price span { font-size: 0.875rem; font-weight: 400; color: var(--gray-600); }
+        .price-original { font-size: 1rem; color: var(--gray-600); text-decoration: line-through; margin-right: 8px; }
+
+        /* Real World */
+        .realworld-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 24px; }
+        .realworld-item { display: flex; align-items: flex-start; gap: 16px; padding: 24px; background: var(--white); border-radius: 16px; border: 1px solid var(--gray-200); }
+        .realworld-icon { font-size: 2rem; flex-shrink: 0; }
+        .realworld-item h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .realworld-item p { color: var(--gray-600); font-size: 0.9rem; }
+
+        /* CTA */
+        .cta { background: var(--gradient); text-align: center; }
+        .cta h2 { font-size: clamp(2rem,4vw,2.5rem); font-weight: 900; margin-bottom: 16px; color: var(--white); }
+        .cta p { font-size: 1.125rem; margin-bottom: 32px; color: rgba(255,255,255,0.8); }
+        .cta .btn { background: var(--secondary); color: var(--white); }
+
+        /* Footer */
+        footer { background: var(--secondary); padding: 64px 0 32px; color: rgba(255,255,255,0.6); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 48px; margin-bottom: 48px; }
+        .footer-logo { font-size: 1.5rem; font-weight: 900; color: var(--white); margin-bottom: 16px; }
+        .footer-logo span { color: var(--primary); }
+        .footer h4 { color: var(--white); font-size: 1rem; margin-bottom: 16px; }
+        .footer p, .footer a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; transition: color 0.3s; }
+        .footer a:hover { color: var(--primary); }
+        .footer-bottom { padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.875rem; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .hero-stats { flex-direction: column; gap: 24px; }
+            .section { padding: 64px 0; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">
+                    <img src="steamnova-logo.svg" alt="SteamNova" class="logo-icon">
+                    <span class="logo-text">Steam<span>Nova</span></span>
+                </a>
+                <nav>
+                    <a href="#philosophy" data-en="Philosophy" data-zh="核心哲学">Philosophy</a>
+                    <a href="#approach" data-en="Our Approach" data-zh="教学方式">Our Approach</a>
+                    <a href="#courses" data-en="Courses" data-zh="课程体系">Courses</a>
+                    <a href="#realworld" data-en="Real World" data-zh="真实世界">Real World</a>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+                        <button class="lang-btn" onclick="setLang('zh')">中</button>
+                    </div>
+                    <a href="#contact" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;" data-en="Book Free Trial" data-zh="预约体验">Book Free Trial</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-stars" id="stars"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" data-en="🚀 Opening 2026 · Hands-On Learning" data-zh="🚀 2026 开业 · 动手学习">🚀 Opening 2026 · Hands-On Learning</div>
+                <h1 data-en="Think Like an <span class='highlight'>Engineer</span>" data-zh="<span class='highlight'>像工程师</span>一样思考">Think Like an <span class='highlight'>Engineer</span></h1>
+                <p data-en="SteamNova — Where kids learn by doing. No boring lectures, just hands-on projects, real-world connections, and lots of fun!">SteamNova — Where kids learn by doing. No boring lectures, just hands-on projects, real-world connections, and lots of fun!</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary" data-en="🎯 Book Free Trial">🎯 Book Free Trial</a>
+                    <a href="#courses" class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: var(--white);" data-en="View Courses">View Courses</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label" data-en="Hands-On Time" data-zh="动手时间">Hands-On Time</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5-12</div>
+                        <div class="stat-label" data-en="Age Range" data-zh="适合年龄">Age Range</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-en="Small Group" data-zh="小班">Small Group</div>
+                        <div class="stat-label" data-en="Personalized" data-zh="个性化">Personalized</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-en="Our Philosophy" data-zh="我们的核心哲学">Our Philosophy</span>
+                <h2 class="section-title" data-en="4 Things We <span class='text-gradient'>Believe</span>" data-zh="我们相信的<span class='text-gradient'>4件事</span>">4 Things We <span class='text-gradient'>Believe</span></h2>
+            </div>
+            <div class="philo-grid">
+                <div class="philo-card">
+                    <div class="philo-icon">🧠</div>
+                    <h3 data-en="Resilience" data-zh="韧性思维">Resilience</h3>
+                    <p data-en="Failure is not the end — it's part of learning. When something doesn't work, we ask 'What did we learn?'">Failure is not the end — it's part of learning. When something doesn't work, we ask "What did we learn?"</p>
+                </div>
+                <div class="philo-card">
+                    <div class="philo-icon">🔧</div>
+                    <h3 data-en="Hands-On = Real Learning" data-zh="动手=真正学习">Hands-On = Real Learning</h3>
+                    <p data-en="Kids learn by doing, not by listening. 70% hands-on, 20% exploring, 10% instruction.">Kids learn by doing, not by listening. 70% hands-on, 20% exploring, 10% instruction.</p>
+                </div>
+                <div class="philo-card">
+                    <div class="philo-icon">⚡</div>
+                    <h3 data-en="Juicy Physics" data-zh="有味的物理">Juicy Physics</h3>
+                    <p data-en="Not formulas — experiences! Kids feel forces, build catapults, and remember the feeling.">Not formulas — experiences! Kids feel forces, build catapults, and remember the feeling.</p>
+                </div>
+                <div class="philo-card">
+                    <div class="philo-icon">🌎</div>
+                    <h3 data-en="Real World Connection" data-zh="连接真实世界">Real World Connection</h3>
+                    <p data-en="What kids build connects to real engineers, NASA rovers, and real problems.">What kids build connects to real engineers, NASA rovers, and real problems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote -->
+    <section class="quote-section">
+        <div class="container">
+            <p class="quote-text" data-en="Thinking like an engineer means you're resilient. It's getting back up after being knocked down." data-zh="像工程师一样思考意味着你有韧性——跌倒了再爬起来。">Thinking like an engineer means you're resilient. It's getting back up after being knocked down.</p>
+        </div>
+    </section>
+
+    <!-- Our Approach -->
+    <section id="approach" class="section section-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-en="Our Approach" data-zh="教学方式">Our Approach</span>
+                <h2 class="section-title" data-en="How We <span class='text-gradient'>Teach</span>" data-zh="我们如何<span class='text-gradient'>教学</span>">How We <span class='text-gradient'>Teach</span></h2>
+                <p class="section-desc" data-en="Every class follows the engineering thinking framework" data-zh="每节课都遵循工程思维框架">Every class follows the engineering thinking framework</p>
+            </div>
+            <div class="approach-grid">
+                <div class="approach-item">
+                    <div class="approach-percent">70%</div>
+                    <div class="approach-label" data-en="Hands-On" data-zh="动手做">Hands-On</div>
+                    <div class="approach-desc" data-en="Kids build, create, and experiment" data-zh="孩子动手搭建、创造、实验">Kids build, create, and experiment</div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-percent">20%</div>
+                    <div class="approach-label" data-en="Explore & Try" data-zh="探索试错">Explore & Try</div>
+                    <div class="approach-desc" data-en="Test ideas, fail, and try again" data-zh="测试想法、失败、再尝试">Test ideas, fail, and try again</div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-percent">10%</div>
+                    <div class="approach-label" data-en="Learn & Review" data-zh="学习复盘">Learn & Review</div>
+                    <div class="approach-desc" data-en="Discuss what worked and why" data-zh="讨论什么有效、为什么">Discuss what worked and why</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real World Connection -->
+    <section id="realworld" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-en="Real World Connections" data-zh="连接真实世界">Real World Connections</span>
+                <h2 class="section-title" data-en="What Kids Build <span class='text-gradient'>Matters</span>" data-zh="孩子的创造<span class='text-gradient'>与真实世界相关</span>">What Kids Build <span class='text-gradient'>Matters</span></h2>
+                <p class="section-desc" data-en="Every project connects to what real engineers do" data-zh="每个项目都连接到真实工程师的工作">Every project connects to what real engineers do</p>
+            </div>
+            <div class="realworld-grid">
+                <div class="realworld-item">
+                    <div class="realworld-icon">🎮</div>
+                    <div>
+                        <h4 data-en="Scratch & Real AI" data-zh="Scratch与真实施">Scratch & Real AI</h4>
+                        <p data-en="How does AI actually 'know' you won the game?" data-zh="AI是如何"判断"你赢得游戏的？">How does AI actually "know" you won the game?</p>
+                    </div>
+                </div>
+                <div class="realworld-item">
+                    <div class="realworld-icon">🤖</div>
+                    <div>
+                        <h4 data-en="Robots & NASA" data-zh="机器人与NASA">Robots & NASA</h4>
+                        <p data-en="Your robot and the Mars Rover — what's the same?" data-zh="你做的机器人和火星探测器有什么相同？">Your robot and the Mars Rover — what's the same?</p>
+                    </div>
+                </div>
+                <div class="realworld-item">
+                    <div class="realworld-icon">🖨️</div>
+                    <div>
+                        <h4 data-en="3D Print & Engineers" data-zh="3D打印与工程师">3D Print & Engineers</h4>
+                        <p data-en="What do real engineers actually print?" data-zh="真实工程师用3D打印做什么？">What do real engineers actually print?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses -->
+    <section id="courses" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-en="Our Courses" data-zh="课程体系">Our Courses</span>
+                <h2 class="section-title" data-en="Programs for Every <span class='text-gradient'>Age</span>" data-zh="适合每个<span class='text-gradient'>年龄段</span>">Programs for Every <span class='text-gradient'>Age</span></h2>
+                <p class="section-desc" data-en="Progressive curriculum using the engineering thinking framework" data-zh="使用工程思维框架的渐进式课程">Progressive curriculum using the engineering thinking framework</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header blue">
+                        <h3 data-en="Little Explorers" data-zh="小小探索者">Little Explorers</h3>
+                        <span class="course-tag">5-7 yrs</span>
+                    </div>
+                    <div class="course-content">
+                        <ul class="course-list">
+                            <li data-en="Hands-on science experiments" data-zh="动手科学实验">Hands-on science experiments</li>
+                            <li data-en="Visual programming basics" data-zh="图形化编程入门">Visual programming basics</li>
+                            <li data-en="Simple robot building" data-zh="简单机器人组装">Simple robot building</li>
+                            <li data-en="Creative arts & engineering" data-zh="创意艺术与工程">Creative arts & engineering</li>
+                            <li data-en="Teamwork & presentation" data-zh="团队合作与展示">Teamwork & presentation</li>
+                        </ul>
+                        <div class="course-price">
+                            <div>
+                                <span class="price-original">$249</span>
+                                <span class="price">$199<span>/mo</span></span>
+                            </div>
+                            <a href="#contact" class="btn btn-primary" style="padding: 12px 24px; font-size: 0.9rem;" data-en="Enroll">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-header purple">
+                        <h3 data-en="Future Builders" data-zh="未来创造者">Future Builders</h3>
+                        <span class="course-tag">8-12 yrs</span>
+                    </div>
+                    <div class="course-content">
+                        <ul class="course-list">
+                            <li data-en="Python programming" data-zh="Python编程">Python programming</li>
+                            <li data-en="AI fundamentals" data-zh="AI基础">AI fundamentals</li>
+                            <li data-en="Robot design & coding" data-zh="机器人设计与编程">Robot design & coding</li>
+                            <li data-en="Sensors & automation" data-zh="传感器与自动化">Sensors & automation</li>
+                            <li data-en="Innovation projects" data-zh="创新项目">Innovation projects</li>
+                        </ul>
+                        <div class="course-price">
+                            <div>
+                                <span class="price-original">$299</span>
+                                <span class="price">$249<span>/mo</span></span>
+                            </div>
+                            <a href="#contact" class="btn btn-primary" style="padding: 12px 24px; font-size: 0.9rem;" data-en="Enroll">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-header orange">
+                        <h3 data-en="AI Innovators" data-zh="AI创新者">AI Innovators</h3>
+                        <span class="course-tag">10-12 yrs</span>
+                    </div>
+                    <div class="course-content">
+                        <ul class="course-list">
+                            <li data-en="Deep learning intro" data-zh="深度学习入门">Deep learning intro</li>
+                            <li data-en="AI project实战" data-zh="AI项目实战">AI project实战</li>
+                            <li data-en="Competition training" data-zh="竞赛特训">Competition training</li>
+                            <li data-en="3D printing design" data-zh="3D打印设计">3D printing design</li>
+                            <li data-en="Innovation competition" data-zh="创新大赛">Innovation competition</li>
+                        </ul>
+                        <div class="course-price">
+                            <div>
+                                <span class="price-original">$399</span>
+                                <span class="price">$329<span>/mo</span></span>
+                            </div>
+                            <a href="#contact" class="btn btn-primary" style="padding: 12px 24px; font-size: 0.9rem;" data-en="Enroll">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact" class="section cta">
+        <div class="container">
+            <h2 data-en="Ready to Start Your Child's <span class='text-gradient'>Journey</span>?" data-zh="准备好让孩子开始<span class='text-gradient'>探索之旅</span>了吗？">Ready to Start Your Child's <span class='text-gradient'>Journey</span>?</h2>
+            <p data-en="Book a free trial class today!" data-zh="立即预约免费体验课！">Book a free trial class today!</p>
+            <a href="mailto:info@steamnova.ca" class="btn" data-en="📞 Book Free Trial">📞 Book Free Trial</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">Steam<span>Nova</span></div>
+                    <p data-en="Hands-on AI & STEAM education for kids" data-zh="孩子的动手AI与STEAM教育">Hands-on AI & STEAM education for kids</p>
+                </div>
+                <div class="footer">
+                    <h4 data-en="Contact" data-zh="联系我们">Contact</h4>
+                    <p>📍 204-6151 Westminster Highway, Richmond BC</p>
+                    <p>📧 info@steamnova.ca</p>
+                    <p>📱 WeChat: SteamNova</p>
+                </div>
+                <div class="footer">
+                    <h4 data-en="Courses" data-zh="课程">Courses</h4>
+                    <a href="#courses">Little Explorers (5-7)</a>
+                    <a href="#courses">Future Builders (8-12)</a>
+                    <a href="#courses">AI Innovators (10-12)</a>
+                </div>
+                <div class="footer">
+                    <h4 data-en="Follow Us" data-zh="关注我们">Follow Us</h4>
+                    <a href="#">Xiaohongshu</a>
+                    <a href="#">WeChat</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SteamNova. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Star background
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'hero-star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = Math.random() * 3 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+        
+        // Language switch
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const enText = el.getAttribute('data-en');
+                const zhText = el.getAttribute('data-zh');
+                if (lang === 'zh') {
+                    el.textContent = zhText || enText;
+                } else {
+                    el.textContent = enText;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
